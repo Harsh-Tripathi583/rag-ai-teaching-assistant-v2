@@ -1,6 +1,8 @@
 from src.pdf_loader import PDFLoader
 from src.chunker import TextChunker
 from src.embedder import Embedder
+from src.vector_store import VectorStore
+from src.retriever import Retriever
 
 
 loader = PDFLoader("data/pdfs/sample.pdf")
@@ -21,11 +23,25 @@ embeddings = embedder.create_embeddings(chunks)
 
 print("\nEmbeddings Created Successfully.")
 
-print("\nEmbedding Shape:")
 
-print(embeddings.shape)
+vector_store = VectorStore()
+
+vector_store.create_index(embeddings,chunks)
 
 
-print("\nFirst Embedding Vector:")
+retriever = Retriever(embedder,vector_store)
 
-print(embeddings[0])
+
+query = "Why did Jack Gisburn stop painting?"
+
+results = retriever.retrieve(query,top_k=3)
+
+
+print("\nTop Retrieved Chunks:\n")
+
+
+for i, chunk in enumerate(results):
+
+    print(f"\nRESULT {i+1}:\n")
+
+    print(chunk[:500])

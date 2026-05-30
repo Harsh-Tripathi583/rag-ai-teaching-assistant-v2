@@ -19,7 +19,8 @@ class Embedder:
 
         embeddings = self.model.encode(
             chunks,
-            convert_to_numpy=True
+            convert_to_numpy=True,
+            normalize_embeddings=True
         )
 
         return embeddings
