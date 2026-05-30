@@ -1,3 +1,4 @@
+import re
 from pypdf import PdfReader
 
 
@@ -7,11 +8,26 @@ class PDFLoader:
 
         self.pdf_path = pdf_path
 
+    def clean_text(self, text):
+
+        import re
+
+        # Fix broken line wraps inside paragraphs
+        text = re.sub(r'(?<!\n)\s*\n\s*(?!\n)', ' ', text)
+
+        # Remove excessive spaces/tabs
+        text = re.sub(r'[ \t]+', ' ', text)
+
+        # Normalize excessive blank lines
+        text = re.sub(r'\n{3,}', '\n\n', text)
+
+        return text.strip()
+
     def load_pdf(self):
 
         reader = PdfReader(self.pdf_path)
 
-        full_text = ""
+        text = ""
 
         for page in reader.pages:
 
@@ -19,6 +35,8 @@ class PDFLoader:
 
             if extracted_text:
 
-                full_text += extracted_text + "\n"
+                text += extracted_text + "\n"
 
-        return full_text
+        cleaned_text = self.clean_text(text)
+
+        return cleaned_text

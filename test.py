@@ -15,9 +15,13 @@ chunker = TextChunker()
 chunks = chunker.create_chunks(text)
 
 print(f"\nTotal Chunks: {len(chunks)}")
+for i,chunk in enumerate(chunks):
+    print(f"{i+1} :\\n")
+    print(f"{chunk}")
 
 
-embedder = Embedder()
+
+""" embedder = Embedder()
 
 embeddings = embedder.create_embeddings(chunks)
 
@@ -44,4 +48,4 @@ for i, chunk in enumerate(results):
 
     print(f"\nRESULT {i+1}:\n")
 
-    print(chunk[:500])
+    print(chunk[:500]) """
