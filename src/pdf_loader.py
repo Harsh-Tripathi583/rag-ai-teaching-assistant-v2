@@ -38,5 +38,5 @@ class PDFLoader:
                 text += extracted_text + "\n"
 
         cleaned_text = self.clean_text(text)
-
+        print(cleaned_text[:200])
         return cleaned_text

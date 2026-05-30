@@ -10,10 +10,11 @@ class Retriever:
         query_embedding = self.embedder.create_embeddings(
             [query]
         )[0]
-
+        print("\n---------Retriever----------\n",)
+        
         retrieved_chunks = self.vector_store.search(
             query_embedding,
             top_k
         )
-
+        print(len(retrieved_chunks))
         return retrieved_chunks
