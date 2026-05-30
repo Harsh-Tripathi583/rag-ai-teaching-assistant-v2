@@ -42,7 +42,7 @@ vector_store.create_index(
 llm = LLM()
 
 
-query = "why did gisburn stopped painting?"
+query = "who is the painter?"
 
 print(query)
 

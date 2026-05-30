@@ -11,7 +11,7 @@ class Embedder:
 
         print("Loading embedding model...")
 
-        self.model = SentenceTransformer(self.model_name)
+        self.model = SentenceTransformer(self.model_name,device="cuda")
 
         print("Embedding model loaded successfully.")
 
@@ -20,7 +20,8 @@ class Embedder:
         embeddings = self.model.encode(
             chunks,
             convert_to_numpy=True,
-            normalize_embeddings=True
+            normalize_embeddings=True,
+            show_progress_bar=True
         )
 
         return embeddings
